@@ -1,4 +1,4 @@
-require './person.rb'
+require './person'
 
 class Student < Person
   def initialize(*person, classroom)
@@ -9,4 +9,4 @@ class Student < Person
   def play_hooky
     '¯\(ツ)/¯'
   end
-end  
+end
