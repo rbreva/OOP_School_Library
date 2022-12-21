@@ -57,11 +57,11 @@ After you're finished please remove all the comments and instructions!
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [your_project_name] <a name="about-project"></a>
+# 📖 OOP School Library <a name="about-project" href="https://github.com/rbreva/OOP_School_Library"></a>
 
 > Describe your project in 1 or 2 sentences.
 
-**[your_project__name]** is a...
+**OOP School Library** is a...
 
 ## 🛠 Built With <a name="built-with"></a>
 

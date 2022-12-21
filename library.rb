@@ -1,7 +1,7 @@
-require "./person.rb"
+require './person'
 
-person_1 = Person.new(47)
+person01 = Person.new(47)
 
-person_1.name = "Mauricio"
+person01.name = "Mauricio"
 
-p person_1
+p person01
