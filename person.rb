@@ -6,7 +6,7 @@ class Person
     @age = age
     @name = name
     @parent_permission = parent_permission
-    @id = rand(1...10)
+    @id = Random.rand(1...1000)
   end
 
   private
