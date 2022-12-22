@@ -1,7 +1,8 @@
 require './person'
 
-person01 = Person.new(47)
-
-person01.name = 'Mauricio'
-
-p person01
+person = Person.new(22, 'maximilianus')
+person.correct_name
+capitalizedPerson = CapitalizeDecorator.new(person)
+capitalizedPerson.correct_name
+capitalizedTrimmedPerson = TrimmerDecorator.new(capitalizedPerson)
+capitalizedTrimmedPerson.correct_name
