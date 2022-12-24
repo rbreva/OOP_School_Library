@@ -117,6 +117,7 @@ class App
     puts 'Book Created Successfully'
   end
 
+  # rubocop:disable ClassLength
   def create_rental
     puts "\n Create Rental \n\n"
 
@@ -143,6 +144,7 @@ class App
     @rentals.push(Rental.new(date, @books[book_num - 1], @person[p_index]))
     puts 'Rental Created successfully'
   end
+  # rubocop:enable ClassLength
 
   def list_rentals
     puts "\n lista de Rental \n\n"
