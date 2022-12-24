@@ -21,5 +21,3 @@ class Main
   end
   puts 'Thanks for using this App!!'
 end
-
-Main

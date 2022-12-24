@@ -11,6 +11,7 @@ class App
     @rentals = []
   end
 
+  # rubocop:disable Style/CyclomaticComplexity
   def select_opt
     option = gets.chomp.to_i
     case option
@@ -25,6 +26,7 @@ class App
       puts 'PLEASE ENTER A NUMBER (1..7)'
     end
   end
+  # rubocop:enable Style/CyclomaticComplexity
 
   def list_books
     puts "\n List of Books \n\n"
@@ -165,5 +167,5 @@ class App
   def exit_app
     puts "\n Thank you for using this app! \n\n"
     exit(true)
-  end  
+  end
 end
