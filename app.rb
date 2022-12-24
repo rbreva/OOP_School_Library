@@ -89,7 +89,7 @@ class App
 
     print 'name:'
     name = gets.chomp
-    classroom = verify_number('Classroom:')
+    classroom = 1
 
     case num
     when 1
