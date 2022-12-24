@@ -82,7 +82,6 @@ class App
     permission
   end
 
-  # rubocop:disable Metrics/ClassLength
   def create_person
     puts "\n Create a Person \n\n"
     num = options_person('Do you want to create a student (1) or a teacher (2)? [input the number]: ', [1, 2])
@@ -107,7 +106,6 @@ class App
     end
     puts "\n Person created successfully \n"
   end
-  # rubocop:enable Metrics/ClassLength
 
   def create_book
     puts "\n Create a Book \n\n"
