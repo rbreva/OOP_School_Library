@@ -32,8 +32,7 @@ class App
     puts "\n List of Books \n\n"
     @books.each do |book|
       puts "Title: #{book.title}, Author: #{book.author}"
-    
-    puts "\n"
+      puts "\n"
     end
   end
 
@@ -41,8 +40,7 @@ class App
     puts "\n List of People \n\n"
     @person.each do |p|
       puts "[#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}"
-    
-    puts "\n"  
+      puts "\n"
     end
   end
 
@@ -78,8 +76,8 @@ class App
 
   def check_permission(permission)
     case permission
-      when 'y' then permission = true
-      when 'n' then permission = false
+    when 'y' then permission = true
+    when 'n' then permission = false
     end
     permission
   end
@@ -100,7 +98,7 @@ class App
 
       permission = check_permission(permission)
 
-      @person.push(Student.new(age, classroom, name, parent_permission = permission))
+      @person.push(Student.new(age, classroom, name, permission))
     when 2
       print 'Specialization:'
       specialty = gets.chomp
@@ -167,5 +165,5 @@ class App
   def exit_app
     puts "\n Thank you for using this app! \n\n"
     exit(true)
-  end  
+  end
 end
