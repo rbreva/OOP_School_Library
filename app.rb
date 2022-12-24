@@ -83,7 +83,6 @@ class App
   end
 
   def create_person
-    puts "\n Create a Person \n\n"
     num = options_person('Do you want to create a student (1) or a teacher (2)? [input the number]: ', [1, 2])
     age = verify_number('Age:')
 
@@ -95,14 +94,11 @@ class App
     when 1
       print 'Has parent permission? [y/n]:'
       permission = gets.chomp
-
       permission = check_permission(permission)
-
       @person.push(Student.new(age, classroom, name, permission))
     when 2
       print 'Specialization:'
       specialty = gets.chomp
-
       @person.push(Teacher.new(age, specialty, name: name))
     else
       puts 'Invalid number, please enter number again!'
