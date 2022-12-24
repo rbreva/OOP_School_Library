@@ -11,7 +11,6 @@ class App
     @rentals = []
   end
 
-  # rubocop:disable Style/CyclomaticComplexity
   def select_opt
     option = gets.chomp.to_i
     case option
@@ -26,13 +25,13 @@ class App
       puts 'PLEASE ENTER A NUMBER (1..7)'
     end
   end
-  # rubocop:enable Style/CyclomaticComplexity
 
   def list_books
     puts "\n List of Books \n\n"
     @books.each do |book|
       puts "Title: #{book.title}, Author: #{book.author}"
-      puts "\n"
+    
+    puts "\n"
     end
   end
 
@@ -40,7 +39,8 @@ class App
     puts "\n List of People \n\n"
     @person.each do |p|
       puts "[#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}"
-      puts "\n"
+    
+    puts "\n"  
     end
   end
 
@@ -76,8 +76,8 @@ class App
 
   def check_permission(permission)
     case permission
-    when 'y' then permission = true
-    when 'n' then permission = false
+      when 'y' then permission = true
+      when 'n' then permission = false
     end
     permission
   end
@@ -95,11 +95,14 @@ class App
     when 1
       print 'Has parent permission? [y/n]:'
       permission = gets.chomp
+
       permission = check_permission(permission)
-      @person.push(Student.new(age, classroom, name, permission))
+
+      @person.push(Student.new(age, classroom, name, parent_permission = permission))
     when 2
       print 'Specialization:'
       specialty = gets.chomp
+
       @person.push(Teacher.new(age, specialty, name: name))
     else
       puts 'Invalid number, please enter number again!'
@@ -162,5 +165,5 @@ class App
   def exit_app
     puts "\n Thank you for using this app! \n\n"
     exit(true)
-  end
+  end  
 end
