@@ -12,7 +12,7 @@ class App
     # @rentals = load_rentals
 
     #@books = []
-    @person = []
+    @person = load_people
     @rentals = []
   end
 
@@ -44,7 +44,11 @@ class App
   def list_people
     puts "\n List of People \n\n"
     @person.each do |per|
-      puts "[Name: #{per.name}, PP: #{per.name}, ID: #{per.id}, Age: #{per.age}"
+      if per.specialization
+        puts "[teacher]: [Name: #{per.name}, specialization: #{per.specialization}, ID: #{per.id}, Age: #{per.age}"
+      else
+        puts "[student]: [Name: #{per.name}, PP: #{per.parent_permission}, ID: #{per.id}, Age: #{per.age}"
+      end
       puts "\n"
     end
   end
@@ -107,7 +111,6 @@ class App
     when 2
       print 'Specialization:'
       specialty = gets.chomp
-
       @person.push(Teacher.new(age, specialty, name: name))
     else
       puts 'Invalid number, please enter number again!'
@@ -179,9 +182,9 @@ class App
       people = @person.each_with_index.map do |per, index|
         { name: per.name,
           age: per.age, 
-          # specialization: (per.specialization if per.instance_of?(Teacher)),
-          # parent_permission: (per.parent_permission if per.instance_of?(Student)), 
-          index: index, 
+          specialization: (per.specialization),
+          parent_permission: (per.parent_permission),
+          index: index,
           id: per.id }
       end
       file.write(JSON.generate(people))
@@ -214,7 +217,16 @@ class App
   end
 
   def load_people
-    return []
+    return [] unless File.exist?('people.json')
+
+    people_json = JSON.parse(File.read('people.json'))
+    people_json.map do |per|
+      if defined?(per.specialization)
+        Teacher.new(per['age'], per['specialization'], per['name'])
+      else
+        Student.new(per['age'], @classroom, per['name'], per['parent_permission'])
+      end
+    end
   end
 
   def load_books
@@ -227,7 +239,7 @@ class App
   end
 
   def load_rentals
-    return []
+    return [] 
   end
 
   def exit_app
