@@ -1,3 +1,4 @@
+require 'json'
 require_relative 'person'
 require_relative 'student'
 require_relative 'teacher'
@@ -6,7 +7,11 @@ require_relative 'rental'
 
 class App
   def initialize
-    @books = []
+    @books = load_books
+    # @person = load_people
+    # @rentals = load_rentals
+
+    #@books = []
     @person = []
     @rentals = []
   end
@@ -38,8 +43,8 @@ class App
 
   def list_people
     puts "\n List of People \n\n"
-    @person.each do |p|
-      puts "[#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}"
+    @person.each do |per|
+      puts "[Name: #{per.name}, PP: #{per.name}, ID: #{per.id}, Age: #{per.age}"
       puts "\n"
     end
   end
@@ -162,8 +167,74 @@ class App
     end
   end
 
+  def save_data
+    save_people
+    save_books
+    save_rentals
+  end
+
+  def save_people
+    #puts "save_people"
+    File.open('people.json', 'w') do |file|
+      people = @person.each_with_index.map do |per, index|
+        { name: per.name,
+          age: per.age, 
+          # specialization: (per.specialization if per.instance_of?(Teacher)),
+          # parent_permission: (per.parent_permission if per.instance_of?(Student)), 
+          index: index, 
+          id: per.id }
+      end
+      file.write(JSON.generate(people))
+    end
+  end
+
+  def save_books
+    # puts "save_books"
+    File.open('books.json', 'w') do |file|
+      books = @books.each_with_index.map do |book, index|
+        {
+          title: book.title, author: book.author, index: index
+        }
+      end
+      file.write(JSON.generate(books))
+    end
+  end
+
+  def save_rentals
+    puts "save_rentals"
+    # File.open('rentals.json', 'w') do |file|
+    #   rentals = @rentals.each_with_index.map do |rental, _index|
+    #     {
+    #       date: rental.date, book_index: @books.index(rental.book),
+    #       person_index: @person.index(rental.person)
+    #     }
+    #   end
+    #   file.write(JSON.generate(rentals))
+    # end
+  end
+
+  def load_people
+    return []
+  end
+
+  def load_books
+    return [] unless File.exist?('books.json')
+
+    books_json = JSON.parse(File.read('books.json'))
+    books_json.map do |book|
+      Book.new(book['title'], book['author'])
+    end
+  end
+
+  def load_rentals
+    return []
+  end
+
   def exit_app
     puts "\n Thank you for using this app! \n\n"
+    #puts "save and exit the application"
+    save_data
     exit(true)
   end
+  
 end

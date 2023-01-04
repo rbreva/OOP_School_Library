@@ -17,7 +17,5 @@ class Main
   loop do
     print_interface
     selected = app.select_opt
-    break if selected == 7
   end
-  puts 'Thanks for using this App!!'
 end
