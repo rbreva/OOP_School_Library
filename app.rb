@@ -102,8 +102,8 @@ class App
       create_rental
     when 6
       list_rentals
-    else
-      puts 'PLEASE ENTER A NUMBER (1..7)'
+    when 7
+      exit_app
     end
   end
 
