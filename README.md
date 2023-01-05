@@ -59,11 +59,11 @@ After you're finished please remove all the comments and instructions!
 
 # 📖 OOP School Library <a name="about-project" href="https://github.com/rbreva/OOP_School_Library"></a>
 
-> Describe your project in 1 or 2 sentences.
+> The librarian of OOP University, and can record what books are in the library and who borrows them. 
 
-**OOP School Library** is a...
+**OOP School Library** is an application
 
-## 🛠 Built With <a name="built-with"></a>
+## 🛠 Built With <a name="built-with">This project was built using the Ruby programming language.</a>
 
 ### Tech Stack <a name="tech-stack"></a>
 
@@ -72,21 +72,21 @@ After you're finished please remove all the comments and instructions!
 <details>
   <summary>Client</summary>
   <ul>
-    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li>Microverse</li>
   </ul>
 </details>
 
 <details>
   <summary>Server</summary>
   <ul>
-    <li><a href="https://expressjs.com/">Express.js</a></li>
+    <li>Github</li>
   </ul>
 </details>
 
 <details>
 <summary>Database</summary>
   <ul>
-    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
+    <li>Local files</li>
   </ul>
 </details>
 
@@ -96,9 +96,9 @@ After you're finished please remove all the comments and instructions!
 
 > Describe between 1-3 key features of the application.
 
-- **[key_feature_1]**
-- **[key_feature_2]**
-- **[key_feature_3]**
+- **Create list of Books**
+- **Create list of People**
+- **Create list of Rentals**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -108,7 +108,7 @@ After you're finished please remove all the comments and instructions!
 
 > Add a link to your deployed project.
 
-- [Live Demo Link](https://yourdeployedapplicationlink.com)
+- Not available yet
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -120,43 +120,15 @@ After you're finished please remove all the comments and instructions!
 
 To get a local copy up and running, follow these steps.
 
-### Prerequisites
-
-In order to run this project you need:
-
-<!--
-Example command:
-
-```sh
- gem install rails
-```
- -->
-
 ### Setup
 
 Clone this repository to your desired folder:
 
-<!--
-Example commands:
-
 ```sh
   cd my-folder
-  git clone git@github.com:myaccount/my-project.git
+  git clone [git@github.com:myaccount/my-project.git](https://github.com/rbreva/OOP_School_Library.git)
 ```
---->
 
-### Install
-
-Install this project with:
-
-<!--
-Example command:
-
-```sh
-  cd my-project
-  gem install
-```
---->
 
 ### Usage
 
@@ -164,35 +136,13 @@ To run the project, execute the following command:
 
 <!--
 Example command:
-
-```sh
-  rails server
-```
 --->
 
-### Run tests
-
-To run tests, run the following command:
-
-<!--
-Example command:
-
-```sh
-  bin/rails test test/models/article_test.rb
 ```
---->
-
-### Deployment
-
-You can deploy this project using:
-
-<!--
-Example:
-
-```sh
+ruby mai.rb
 
 ```
- -->
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -204,15 +154,13 @@ Example:
 
 👤 **Author1**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- [Mohamed Eldeeb](https://github.com/eng-mohamed-eldeeb)
+
+
 
 👤 **Author2**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- [R. Mauricio Mendoza](https://github.com/rbreva) 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -220,11 +168,10 @@ Example:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-> Describe 1 - 3 features you will add to the project.
 
-- [ ] **[new_feature_1]**
-- [ ] **[new_feature_2]**
-- [ ] **[new_feature_3]**
+- [ ] **[Add more methods and attributes to the Person and Student classes.]**
+- [ ] **[Create additional classes that inherit from Person, such as Teacher and Parent.]**
+- [ ] **[Implement functionality to store and retrieve Person and Student objects from a database]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -234,7 +181,7 @@ Example:
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](../../issues/).
+Feel free to check the [issues page](https://github.com/rbreva/OOP_School_Library/issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -258,21 +205,6 @@ I would like to thank...
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- FAQ (optional) -->
-
-## ❓ FAQ <a name="faq"></a>
-
-> Add at least 2 questions new developers would ask when they decide to use your project.
-
-- **[Question_1]**
-
-  - [Answer_1]
-
-- **[Question_2]**
-
-  - [Answer_2]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
 
