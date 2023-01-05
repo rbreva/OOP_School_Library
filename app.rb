@@ -14,6 +14,21 @@ def load_books
   end
 end
 
+def options_person(msg, options)
+  number = 0
+  loop do
+    print msg
+    input = gets.chomp.to_i
+    if options.include?(input)
+      number = input
+      break
+    else
+      puts 'Please, enter a valid input!'
+    end
+  end
+  number
+end
+
 def load_people
   return [] unless File.exist?('people.json')
 
@@ -56,6 +71,14 @@ def list_people
   end
 end
 
+def check_permission(permission)
+  case permission
+  when 'y' then permission = true
+  when 'n' then permission = false
+  end
+  permission
+end
+
 class App
   def initialize
     @books = load_books
@@ -86,21 +109,6 @@ class App
     end
   end
 
-  def options_person(msg, options)
-    number = 0
-    loop do
-      print msg
-      input = gets.chomp.to_i
-      if options.include?(input)
-        number = input
-        break
-      else
-        puts 'Please, enter a valid input!'
-      end
-    end
-    number
-  end
-
   def verify_number(msg)
     number = 0
     loop do
@@ -116,16 +124,7 @@ class App
     number
   end
 
-  def check_permission(permission)
-    case permission
-    when 'y' then permission = true
-    when 'n' then permission = false
-    end
-    permission
-  end
-
   def create_person
-    puts "\n Create a Person \n\n"
     num = options_person('Do you want to create a student (1) or a teacher (2)? [input the number]: ', [1, 2])
     age = verify_number('Age:')
 
