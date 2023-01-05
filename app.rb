@@ -101,9 +101,7 @@ class App
     when 5
       create_rental
     when 6
-      app.list_rentals
-    when 7
-      app.exit_app
+      list_rentals
     else
       puts 'PLEASE ENTER A NUMBER (1..7)'
     end
@@ -194,7 +192,6 @@ class App
     puts "\nRentals\n\n"
 
     @rentals.each do |rental|
-      puts rental.person
       puts "\nDate: #{rental.date} Book: #{rental.book.title} by #{rental.book.author}" if rental.person.id == id
     end
   end
