@@ -11,9 +11,9 @@ class App
     @person = load_people
     @rentals = load_rentals
 
-    #@books = []
-    #@person = []
-    #@rentals = []
+    # @books = []
+    # @person = []
+    # @rentals = []
   end
 
   # rubocop:disable Style/CyclomaticComplexity
@@ -64,7 +64,6 @@ class App
       puts "\n"
     end
   end
-
 
   def options_person(msg, options)
     number = 0
@@ -156,14 +155,11 @@ class App
     end
     puts @person[0].name
     iam = gets.chomp.to_i
-    puts iam
-    puts "HERE #{@person[iam - 1].name}"
     puts @person[iam - 1].name
     print 'Date:'
     date = gets.chomp
 
     p_index = iam - 1
-    p @person[p_index]
     @rentals.push(Rental.new(date, @books[book_num - 1], @person[p_index]))
     puts 'Rental Created successfully'
   end
@@ -190,20 +186,18 @@ class App
   end
 
   def check_type(per)
-    if per.instance_of?(Teacher)
-      return 'teacher'
-    else
-      return 'student'
-    end
+    return 'teacher' if per.instance_of?(Teacher)
+
+    return 'student'
   end
 
   def save_people
-    #puts "save_people"
+    # puts "save_people"
     File.open('people.json', 'w') do |file|
       people = @person.each_with_index.map do |per, index|
         { type: check_type(per),
           name: per.name,
-          age: per.age, 
+          age: per.age,
           specialization: (per.specialization if per.instance_of?(Teacher)),
           parent_permission: (per.parent_permission),
           index: index,
@@ -242,13 +236,12 @@ class App
 
     people_json = JSON.parse(File.read('people.json'))
     people_json.map do |per|
-          if per['type'] == 'teacher'
-            Teacher.new(per['age'], per['specialization'], per['name'])
-          else
-            # per.specialization
-           Student.new(per['age'], @classroom, per['name'], per['parent_permission'])
-          end
-        
+      if per['type'] == 'teacher'
+        Teacher.new(per['age'], per['specialization'], per['name'])
+      else
+        # per.specialization
+        Student.new(per['age'], @classroom, per['name'], per['parent_permission'])
+      end
     end
   end
 
@@ -272,9 +265,8 @@ class App
 
   def exit_app
     puts "\n Thank you for using this app! \n\n"
-    #puts "save and exit the application"
+    # puts "save and exit the application"
     save_data
     exit(true)
   end
-  
 end
