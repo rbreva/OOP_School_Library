@@ -1,7 +1,9 @@
 require './person'
 
 class Teacher < Person
-  def initialize(age, specialization, name: 'Unkown', parent_permission: true)
+  attr_reader :specialization
+
+  def initialize(age, specialization, name, parent_permission: true)
     puts "HERE #{name}"
     super(age, name, parent_permission: parent_permission)
     @specialization = specialization

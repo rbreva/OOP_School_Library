@@ -1,62 +1,110 @@
+require 'json'
 require_relative 'person'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'book'
 require_relative 'rental'
 
+def load_books
+  return [] unless File.exist?('books.json')
+
+  books_json = JSON.parse(File.read('books.json'))
+  books_json.map do |book|
+    Book.new(book['title'], book['author'])
+  end
+end
+
+def options_person(msg, options)
+  number = 0
+  loop do
+    print msg
+    input = gets.chomp.to_i
+    if options.include?(input)
+      number = input
+      break
+    else
+      puts 'Please, enter a valid input!'
+    end
+  end
+  number
+end
+
+def load_people
+  return [] unless File.exist?('people.json')
+
+  people_json = JSON.parse(File.read('people.json'))
+  people_json.map do |per|
+    if per['type'] == 'teacher'
+      Teacher.new(per['age'], per['specialization'], per['name'])
+    else
+      Student.new(per['age'], @classroom, per['name'], per['parent_permission'])
+    end
+  end
+end
+
+def load_rentals
+  return [] unless File.exist?('rentals.json')
+
+  rentals_json = JSON.parse(File.read('rentals.json'))
+  rentals_json.map do |rental|
+    Rental.new(rental['date'], @books[rental['book_index']], @person[rental['person_index']])
+  end
+end
+
+def list_books
+  puts "\n List of Books \n\n"
+  @books.each do |book|
+    puts "Title: #{book.title}, Author: #{book.author}"
+    puts "\n"
+  end
+end
+
+def list_people
+  puts "\n List of People \n\n"
+  @person.each_with_index do |per, index|
+    if per.instance_of?(Teacher)
+      puts "#{index}>[teacher]: [Name: #{per.name}, specialization: #{per.specialization}, Age: #{per.age}"
+    else
+      puts "#{index}>[student]: [Name: #{per.name}, PP: #{per.parent_permission}, ID: #{per.id}, Age: #{per.age}"
+    end
+    puts "\n"
+  end
+end
+
+def check_permission(permission)
+  case permission
+  when 'y' then permission = true
+  when 'n' then permission = false
+  end
+  permission
+end
+
 class App
   def initialize
-    @books = []
-    @person = []
-    @rentals = []
+    @books = load_books
+    @person = load_people
+    @rentals = load_rentals
   end
 
-  # rubocop:disable Style/CyclomaticComplexity
   def select_opt
     option = gets.chomp.to_i
+
     case option
-    when 1 then list_books
-    when 2 then list_people
-    when 3 then create_person
-    when 4 then create_book
-    when 5 then create_rental
-    when 6 then list_rentals
-    when 7 then exit_app
+    when 1
+      list_books
+    when 2
+      list_people
+    when 3
+      create_person
+    when 4
+      create_book
+    when 5
+      create_rental
+    when 6
+      list_rentals
     else
-      puts 'PLEASE ENTER A NUMBER (1..7)'
+      exit_app
     end
-  end
-  # rubocop:enable Style/CyclomaticComplexity
-
-  def list_books
-    puts "\n List of Books \n\n"
-    @books.each do |book|
-      puts "Title: #{book.title}, Author: #{book.author}"
-      puts "\n"
-    end
-  end
-
-  def list_people
-    puts "\n List of People \n\n"
-    @person.each do |p|
-      puts "[#{p.class.name}] Name: #{p.name}, ID: #{p.id}, Age: #{p.age}"
-      puts "\n"
-    end
-  end
-
-  def options_person(msg, options)
-    number = 0
-    loop do
-      print msg
-      input = gets.chomp.to_i
-      if options.include?(input)
-        number = input
-        break
-      else
-        puts 'Please, enter a valid input!'
-      end
-    end
-    number
   end
 
   def verify_number(msg)
@@ -74,16 +122,7 @@ class App
     number
   end
 
-  def check_permission(permission)
-    case permission
-    when 'y' then permission = true
-    when 'n' then permission = false
-    end
-    permission
-  end
-
   def create_person
-    puts "\n Create a Person \n\n"
     num = options_person('Do you want to create a student (1) or a teacher (2)? [input the number]: ', [1, 2])
     age = verify_number('Age:')
 
@@ -102,8 +141,7 @@ class App
     when 2
       print 'Specialization:'
       specialty = gets.chomp
-
-      @person.push(Teacher.new(age, specialty, name: name))
+      @person.push(Teacher.new(age, specialty, name))
     else
       puts 'Invalid number, please enter number again!'
     end
@@ -135,14 +173,11 @@ class App
     end
     puts @person[0].name
     iam = gets.chomp.to_i
-    puts iam
-    puts "HERE #{@person[iam - 1].name}"
     puts @person[iam - 1].name
     print 'Date:'
     date = gets.chomp
 
     p_index = iam - 1
-    p @person[p_index]
     @rentals.push(Rental.new(date, @books[book_num - 1], @person[p_index]))
     puts 'Rental Created successfully'
   end
@@ -157,13 +192,63 @@ class App
     puts "\nRentals\n\n"
 
     @rentals.each do |rental|
-      puts rental.person
       puts "\nDate: #{rental.date} Book: #{rental.book.title} by #{rental.book.author}" if rental.person.id == id
+    end
+  end
+
+  def save_data
+    save_people
+    save_books
+    save_rentals
+  end
+
+  def check_type(per)
+    return 'teacher' if per.instance_of?(Teacher)
+
+    'student'
+  end
+
+  def save_people
+    File.open('people.json', 'w') do |file|
+      people = @person.each_with_index.map do |per, index|
+        { type: check_type(per),
+          name: per.name,
+          age: per.age,
+          specialization: (per.specialization if per.instance_of?(Teacher)),
+          parent_permission: per.parent_permission,
+          index: index,
+          id: per.id }
+      end
+      file.write(JSON.generate(people))
+    end
+  end
+
+  def save_books
+    File.open('books.json', 'w') do |file|
+      books = @books.each_with_index.map do |book, index|
+        {
+          title: book.title, author: book.author, index: index
+        }
+      end
+      file.write(JSON.generate(books))
+    end
+  end
+
+  def save_rentals
+    File.open('rentals.json', 'w') do |file|
+      rentals = @rentals.each_with_index.map do |rental, _index|
+        {
+          date: rental.date, book_index: @books.index(rental.book),
+          person_index: @person.index(rental.person)
+        }
+      end
+      file.write(JSON.generate(rentals))
     end
   end
 
   def exit_app
     puts "\n Thank you for using this app! \n\n"
+    save_data
     exit(true)
   end
 end
