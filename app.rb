@@ -102,7 +102,7 @@ class App
       create_rental
     when 6
       list_rentals
-    when 7
+    else
       exit_app
     end
   end
