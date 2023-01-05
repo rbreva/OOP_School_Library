@@ -44,7 +44,7 @@ class App
   def list_people
     puts "\n List of People \n\n"
     @person.each do |per|
-      if per.specialization
+      if per.instance_of?(Teacher)
         puts "[teacher]: [Name: #{per.name}, specialization: #{per.specialization}, ID: #{per.id}, Age: #{per.age}"
       else
         puts "[student]: [Name: #{per.name}, PP: #{per.parent_permission}, ID: #{per.id}, Age: #{per.age}"
@@ -111,7 +111,7 @@ class App
     when 2
       print 'Specialization:'
       specialty = gets.chomp
-      @person.push(Teacher.new(age, specialty, name: name))
+      @person.push(Teacher.new(age, specialty, name))
     else
       puts 'Invalid number, please enter number again!'
     end
@@ -176,13 +176,22 @@ class App
     save_rentals
   end
 
+  def check_type(per)
+    if per.instance_of?(Teacher)
+      return 'teacher'
+    else
+      return 'student'
+    end
+  end
+
   def save_people
     #puts "save_people"
     File.open('people.json', 'w') do |file|
       people = @person.each_with_index.map do |per, index|
-        { name: per.name,
+        { type: check_type(per),
+          name: per.name,
           age: per.age, 
-          specialization: (per.specialization),
+          specialization: (per.specialization if per.instance_of?(Teacher)),
           parent_permission: (per.parent_permission),
           index: index,
           id: per.id }
@@ -204,7 +213,6 @@ class App
   end
 
   def save_rentals
-    puts "save_rentals"
     # File.open('rentals.json', 'w') do |file|
     #   rentals = @rentals.each_with_index.map do |rental, _index|
     #     {
@@ -221,11 +229,13 @@ class App
 
     people_json = JSON.parse(File.read('people.json'))
     people_json.map do |per|
-      if defined?(per.specialization)
-        Teacher.new(per['age'], per['specialization'], per['name'])
-      else
-        Student.new(per['age'], @classroom, per['name'], per['parent_permission'])
-      end
+          if per['type'] == 'teacher'
+            Teacher.new(per['age'], per['specialization'], per['name'])
+          else
+            # per.specialization
+           Student.new(per['age'], @classroom, per['name'], per['parent_permission'])
+          end
+        
     end
   end
 
@@ -239,7 +249,7 @@ class App
   end
 
   def load_rentals
-    return [] 
+    return []
   end
 
   def exit_app

@@ -1,1 +1,1 @@
-[]
+[{"type":"teacher","name":"12","age":21,"specialization":"620","parent_permission":true,"index":0,"id":327},{"type":"student","name":"51","age":61,"specialization":null,"parent_permission":"230","index":1,"id":297},{"type":"teacher","name":"ali","age":45,"specialization":"cats","parent_permission":true,"index":2,"id":491}]
