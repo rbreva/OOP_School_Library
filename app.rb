@@ -14,6 +14,48 @@ def load_books
   end
 end
 
+def load_people
+  return [] unless File.exist?('people.json')
+
+  people_json = JSON.parse(File.read('people.json'))
+  people_json.map do |per|
+    if per['type'] == 'teacher'
+      Teacher.new(per['age'], per['specialization'], per['name'])
+    else
+      Student.new(per['age'], @classroom, per['name'], per['parent_permission'])
+    end
+  end
+end
+
+def load_rentals
+  return [] unless File.exist?('rentals.json')
+
+  rentals_json = JSON.parse(File.read('rentals.json'))
+  rentals_json.map do |rental|
+    Rental.new(rental['date'], @books[rental['book_index']], @person[rental['person_index']])
+  end
+end
+
+def list_books
+  puts "\n List of Books \n\n"
+  @books.each do |book|
+    puts "Title: #{book.title}, Author: #{book.author}"
+    puts "\n"
+  end
+end
+
+def list_people
+  puts "\n List of People \n\n"
+  @person.each_with_index do |per, index|
+    if per.instance_of?(Teacher)
+      puts "#{index}>[teacher]: [Name: #{per.name}, specialization: #{per.specialization}, Age: #{per.age}"
+    else
+      puts "#{index}>[student]: [Name: #{per.name}, PP: #{per.parent_permission}, ID: #{per.id}, Age: #{per.age}"
+    end
+    puts "\n"
+  end
+end
+
 class App
   def initialize
     @books = load_books
@@ -33,27 +75,6 @@ class App
     when 7 then exit_app
     else
       puts 'PLEASE ENTER A NUMBER (1..7)'
-    end
-  end
-  # rubocop:enable Style/CyclomaticComplexity
-
-  def list_books
-    puts "\n List of Books \n\n"
-    @books.each do |book|
-      puts "Title: #{book.title}, Author: #{book.author}"
-      puts "\n"
-    end
-  end
-
-  def list_people
-    puts "\n List of People \n\n"
-    @person.each_with_index do |per, index|
-      if per.instance_of?(Teacher)
-        puts "#{index}>[teacher]: [Name: #{per.name}, specialization: #{per.specialization}, Age: #{per.age}"
-      else
-        puts "#{index}>[student]: [Name: #{per.name}, PP: #{per.parent_permission}, ID: #{per.id}, Age: #{per.age}"
-      end
-      puts "\n"
     end
   end
 
@@ -218,29 +239,6 @@ class App
         }
       end
       file.write(JSON.generate(rentals))
-    end
-  end
-
-  def load_people
-    return [] unless File.exist?('people.json')
-
-    people_json = JSON.parse(File.read('people.json'))
-    people_json.map do |per|
-      if per['type'] == 'teacher'
-        Teacher.new(per['age'], per['specialization'], per['name'])
-      else
-        # per.specialization
-        Student.new(per['age'], @classroom, per['name'], per['parent_permission'])
-      end
-    end
-  end
-
-  def load_rentals
-    return [] unless File.exist?('rentals.json')
-
-    rentals_json = JSON.parse(File.read('rentals.json'))
-    rentals_json.map do |rental|
-      Rental.new(rental['date'], @books[rental['book_index']], @person[rental['person_index']])
     end
   end
 
