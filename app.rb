@@ -8,12 +8,12 @@ require_relative 'rental'
 class App
   def initialize
     @books = load_books
-    # @person = load_people
-    # @rentals = load_rentals
+    @person = load_people
+    @rentals = load_rentals
 
     #@books = []
-    @person = load_people
-    @rentals = []
+    #@person = []
+    #@rentals = []
   end
 
   # rubocop:disable Style/CyclomaticComplexity
@@ -41,17 +41,30 @@ class App
     end
   end
 
+  # def list_people
+  #   puts "\n List of People \n\n"
+  #   @person.each do |per|
+  #     if per.instance_of?(Teacher)
+  #       puts "[teacher]: [Name: #{per.name}, specialization: #{per.specialization}, ID: #{per.id}, Age: #{per.age}"
+  #     else
+  #       puts "[student]: [Name: #{per.name}, PP: #{per.parent_permission}, ID: #{per.id}, Age: #{per.age}"
+  #     end
+  #     puts "\n"
+  #   end
+  # end
+
   def list_people
     puts "\n List of People \n\n"
-    @person.each do |per|
+    @person.each_with_index do |per, index|
       if per.instance_of?(Teacher)
-        puts "[teacher]: [Name: #{per.name}, specialization: #{per.specialization}, ID: #{per.id}, Age: #{per.age}"
+        puts "#{index}>[teacher]: [Name: #{per.name}, specialization: #{per.specialization}, ID: #{per.id}, Age: #{per.age}"
       else
-        puts "[student]: [Name: #{per.name}, PP: #{per.parent_permission}, ID: #{per.id}, Age: #{per.age}"
+        puts "#{index}>[student]: [Name: #{per.name}, PP: #{per.parent_permission}, ID: #{per.id}, Age: #{per.age}"
       end
       puts "\n"
     end
   end
+
 
   def options_person(msg, options)
     number = 0
@@ -213,15 +226,15 @@ class App
   end
 
   def save_rentals
-    # File.open('rentals.json', 'w') do |file|
-    #   rentals = @rentals.each_with_index.map do |rental, _index|
-    #     {
-    #       date: rental.date, book_index: @books.index(rental.book),
-    #       person_index: @person.index(rental.person)
-    #     }
-    #   end
-    #   file.write(JSON.generate(rentals))
-    # end
+    File.open('rentals.json', 'w') do |file|
+      rentals = @rentals.each_with_index.map do |rental, _index|
+        {
+          date: rental.date, book_index: @books.index(rental.book),
+          person_index: @person.index(rental.person)
+        }
+      end
+      file.write(JSON.generate(rentals))
+    end
   end
 
   def load_people
@@ -249,7 +262,12 @@ class App
   end
 
   def load_rentals
-    return []
+    return [] unless File.exist?('rentals.json')
+
+    rentals_json = JSON.parse(File.read('rentals.json'))
+    rentals_json.map do |rental|
+      Rental.new(rental['date'], @books[rental['book_index']], @person[rental['person_index']])
+    end
   end
 
   def exit_app
