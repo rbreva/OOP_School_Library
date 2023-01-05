@@ -188,7 +188,7 @@ class App
   def check_type(per)
     return 'teacher' if per.instance_of?(Teacher)
 
-    return 'student'
+    'student'
   end
 
   def save_people
@@ -199,7 +199,7 @@ class App
           name: per.name,
           age: per.age,
           specialization: (per.specialization if per.instance_of?(Teacher)),
-          parent_permission: (per.parent_permission),
+          parent_permission: per.parent_permission,
           index: index,
           id: per.id }
       end
