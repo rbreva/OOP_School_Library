@@ -17,5 +17,6 @@ class Main
   loop do
     print_interface
     selected = app.select_opt
+    selected
   end
 end
