@@ -65,14 +65,22 @@ class App
 
   def select_opt
     option = gets.chomp.to_i
+
     case option
-    when 1 then list_books
-    when 2 then list_people
-    when 3 then create_person
-    when 4 then create_book
-    when 5 then create_rental
-    when 6 then list_rentals
-    when 7 then exit_app
+    when 1
+      list_books
+    when 2
+      list_people
+    when 3
+      create_person
+    when 4
+      create_book
+    when 5
+      create_rental
+    when 6
+      app.list_rentals
+    when 7
+      app.exit_app
     else
       puts 'PLEASE ENTER A NUMBER (1..7)'
     end
