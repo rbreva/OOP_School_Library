@@ -25,7 +25,7 @@ describe 'Create person object' do
       person = Person.new(20, 'Kerolous')
       expect(person.can_use_services?).to be true
     end
-    
+
     it 'The correct_name method should return true' do
       person = Person.new(20, 'Kerolous')
       p person.correct_name
