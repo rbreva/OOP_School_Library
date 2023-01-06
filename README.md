@@ -150,15 +150,15 @@ ruby mai.rb
 
 ## 👥 Authors <a name="authors"></a>
 
-> Mention all of the collaborators of this project.
 
-👤 **Author1**
+
+👤 **Mohamed Eldeeb**
 
 - [Mohamed Eldeeb](https://github.com/eng-mohamed-eldeeb)
 
 
 
-👤 **Author2**
+👤 **Mauricio Mendoza**
 
 - [R. Mauricio Mendoza](https://github.com/rbreva) 
 
