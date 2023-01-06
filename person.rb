@@ -13,17 +13,12 @@ class Person < Nameable
     @rentals = []
   end
 
-  private
-
-  def of_age?(age)
-    true if age >= 18
-    false
+  def of_age?
+    @age >= 18
   end
 
-  public
-
   def can_use_services?
-    return true if of_age? || @parent_permission
+    of_age? or parent_permission
   end
 
   def correct_name

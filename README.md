@@ -146,19 +146,42 @@ ruby mai.rb
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Run tests
+
+To run tests, run the following command:
+
+Example command:
+
+```sh
+  1- In the project folder open the terminal
+  2- Run Run gem `install rspec` to install the rspec gem
+  3- Direct to the test folder 'cd test'
+  4- Run 'rspec + the name of the file that you want to test'
+```
+-
+
+## Setup
+
+1. Clone the project using git-bash or Githup Desktop.
+2. Open the project folder with VSCode or any Editor.
+3. Open terminal and navigate to the project folder.
+4. Type `irb`.
+5. Copy the code from files and run it.
+
+
 <!-- AUTHORS -->
 
 ## 👥 Authors <a name="authors"></a>
 
-> Mention all of the collaborators of this project.
 
-👤 **Author1**
+
+👤 **Mohamed Eldeeb**
 
 - [Mohamed Eldeeb](https://github.com/eng-mohamed-eldeeb)
 
 
 
-👤 **Author2**
+👤 **Mauricio Mendoza**
 
 - [R. Mauricio Mendoza](https://github.com/rbreva) 
 

@@ -1,4 +1,4 @@
-require './person'
+require_relative './person'
 
 class Student < Person
   attr_reader :classroom
@@ -14,6 +14,6 @@ class Student < Person
 
   def classroom=(crm)
     @classroom = crm
-    classroom.students.push(self) unless classroom.students.includes?(self)
+    classroom.students.push(self)
   end
 end

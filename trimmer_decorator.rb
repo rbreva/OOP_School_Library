@@ -1,7 +1,7 @@
-require './decorator'
+require_relative './decorator'
 
 class TrimmerDecorator < Decorator
-  def correct_name
-    @nameable.correct_name[0..9] if @nameable.correct_name.length > 10
+  def correct_name(name)
+    name.capitalize[0..9]
   end
 end
